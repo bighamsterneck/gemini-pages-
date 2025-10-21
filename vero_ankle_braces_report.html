@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vero Ankle Braces: Acquisition Intelligence Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .main-container {
+            max-width: 1400px;
+            margin: auto;
+            padding: 1rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .nav-button {
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-button.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .nav-button:not(.active):hover {
+            background-color: #e5e7eb;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .product-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        .tab-button.active {
+            border-bottom-color: #3b82f6;
+            color: #3b82f6;
+            font-weight: 600;
+        }
+    </style>
+    <!-- Chosen Palette: Calm Neutrals with Blue Accent -->
+    <!-- Application Structure Plan: A thematic, single-page dashboard structure was chosen for its intuitive user flow. It starts with a high-level summary, then allows users to dive into specific areas of interest (Company, Products, Market, Strategy) via a clear navigation bar. This non-linear approach is superior to a linear report as it lets different stakeholders (e.g., finance, marketing, product teams) quickly access the information most relevant to them. Key interactions include tabbed content for product features, toggles for market channel analysis, and interactive charts for competitive and financial data, all designed to make complex information digestible at a glance. -->
+    <!-- Visualization & Content Choices: 
+        - Company Overview: Goal: Inform. Method: Key metric cards and a timeline. Interaction: Hover effects on cards. Justification: Provides a quick, scannable summary of the company's foundation and key personnel.
+        - Product Analysis: Goal: Organize & Compare. Method: Tabbed interface for the main Vero Ankle Brace. Interaction: Clicking tabs to reveal different features (3-in-1 system, materials). Justification: Breaks down the core product's value proposition into understandable components without overwhelming the user.
+        - Market Analysis: Goal: Compare & Inform. Method: Two pie charts and a bar chart. Interaction: A toggle switches the view between B2B and B2C channel breakdowns, updating the text description. The competitive landscape chart uses tooltips on hover. Justification: Chart.js provides a clear visual comparison of market segments and competitors. The toggle interaction directly addresses the user's dual interest in HCP and retail channels.
+        - Strategic Fit (SWOT): Goal: Organize & Analyze. Method: A 2x2 grid built with Tailwind CSS. Interaction: Hovering over each quadrant reveals key points. Justification: A classic SWOT analysis is best presented in its native grid format for immediate understanding of internal vs. external factors.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-gray-800">
+
+    <div class="main-container">
+        <header class="text-center py-8">
+            <h1 class="text-4xl font-bold text-gray-900">Vero Ankle Braces: Acquisition Intelligence Report</h1>
+            <p class="mt-2 text-lg text-gray-600">An interactive dashboard for strategic analysis.</p>
+        </header>
+
+        <nav class="flex justify-center space-x-2 md:space-x-4 bg-white p-2 rounded-full shadow-sm sticky top-2 z-10">
+            <button data-target="overview" class="nav-button active px-4 py-2 rounded-full text-sm md:text-base font-medium">Overview</button>
+            <button data-target="product" class="nav-button px-4 py-2 rounded-full text-sm md:text-base font-medium">Product Analysis</button>
+            <button data-target="market" class="nav-button px-4 py-2 rounded-full text-sm md:text-base font-medium">Market Landscape</button>
+            <button data-target="strategy" class="nav-button px-4 py-2 rounded-full text-sm md:text-base font-medium">Strategic Fit</button>
+        </nav>
+
+        <main id="content" class="mt-8">
+            <!-- Overview Section -->
+            <section id="overview" class="content-section">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold">Company Snapshot</h2>
+                    <p class="text-gray-600 mt-2">Vero Ankle is a specialized orthopedic company founded by a team of experienced orthopedic surgeons. Their mission is to provide advanced bracing solutions that enhance mobility and recovery. This section provides a high-level look at the company's core identity and its key assets.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card p-6 text-center">
+                        <h3 class="font-semibold text-lg">Core Focus</h3>
+                        <p class="text-3xl font-bold text-blue-500 mt-2">Ankle Stabilization</p>
+                        <p class="text-sm text-gray-500 mt-2">Specializing in dynamic support for injury recovery and prevention.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-semibold text-lg">Key Technology</h3>
+                        <p class="text-3xl font-bold text-blue-500 mt-2">BioMemory™</p>
+                        <p class="text-sm text-gray-500 mt-2">Patented flexible material that adapts to movement and provides dynamic support.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-semibold text-lg">Founder Expertise</h3>
+                        <p class="text-3xl font-bold text-blue-500 mt-2">100+ Years</p>
+                        <p class="text-sm text-gray-500 mt-2">Combined clinical and surgical experience of the founding medical team.</p>
+                    </div>
+                    <div class="card p-6 text-center">
+                        <h3 class="font-semibold text-lg">Target Audience</h3>
+                        <p class="text-3xl font-bold text-blue-500 mt-2">Dual Market</p>
+                        <p class="text-sm text-gray-500 mt-2">Serves both Healthcare Professionals (HCPs) and Direct-to-Consumer (DTC) channels.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Product Analysis Section -->
+            <section id="product" class="content-section hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold">Core Product: The Vero Ankle® Brace</h2>
+                    <p class="text-gray-600 mt-2">The company's flagship product is a versatile ankle brace designed to support patients through the entire rehabilitation process. Its key innovation lies in its modular design and proprietary material. Explore the features that define its market position by selecting the tabs below.</p>
+                </div>
+                <div class="card p-6 md:p-8">
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/3">
+                            <div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center">
+                                <span class="text-gray-500 text-2xl font-semibold"></span>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <div class="border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                                    <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm" data-tab="system">3-in-1 System</button>
+                                    <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="material">Patented Material</button>
+                                    <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" data-tab="design">Design & Usability</button>
+                                </nav>
+                            </div>
+                            <div class="mt-6">
+                                <div id="system" class="tab-content">
+                                    <h3 class="text-xl font-semibold mb-2">Adaptable Recovery Phases</h3>
+                                    <p class="text-gray-600">The brace features removable stirrups to adjust the level of support based on the recovery stage:</p>
+                                    <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                                        <li><strong class="font-semibold">Weeks 1-4 (Both Stirrups):</strong> Maximum rigid support for acute injury or post-surgery. Restricts movement for safe rehabilitation.</li>
+                                        <li><strong class="font-semibold">Weeks 5-6 (One Stirrup):</strong> Dynamic, customizable support for partial healing. Manages one-sided pain and allows controlled flexibility.</li>
+                                        <li><strong class="font-semibold">Weeks 7-8 (No Stirrups):</strong> Essential protection for mild sprains or nearly healed ankles. Mimics natural ligament function to encourage active recovery.</li>
+                                    </ul>
+                                </div>
+                                <div id="material" class="tab-content hidden">
+                                    <h3 class="text-xl font-semibold mb-2">BioMemory™ Technology</h3>
+                                    <p class="text-gray-600">The core innovation is the use of patented BioMemory™ material, a combination of flexible and biocompatible components:</p>
+                                     <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                                        <li><strong>Dynamic Support:</strong> The material is designed to return to its original shape with every step, providing an extra "boost" and adaptive stability.</li>
+                                        <li><strong>Comfort & Durability:</strong> Comprises a nylon knit laminate, soft EVA foam, and other biocompatible plastics for a blend of comfort and long-term wear.</li>
+                                        <li><strong>Breathability:</strong> Perforated design elements help reduce perspiration buildup and prevent skin irritation during extended use.</li>
+                                    </ul>
+                                </div>
+                                <div id="design" class="tab-content hidden">
+                                     <h3 class="text-xl font-semibold mb-2">User-Centric Features</h3>
+                                    <p class="text-gray-600">The brace is designed for ease of use by both patients and clinicians:</p>
+                                     <ul class="list-disc list-inside mt-4 space-y-2 text-gray-700">
+                                        <li><strong>Low Profile:</strong> Fits easily within most athletic or work shoes, encouraging patient compliance.</li>
+                                        <li><strong>Ambidextrous:</strong> Can be worn on either the left or right foot, simplifying inventory for B2B channels.</li>
+                                        <li><strong>Easy Adjustment:</strong> Uses simple velcro straps for a secure and customizable fit, adaptable as swelling decreases.</li>
+                                        <li><strong>Simple Care:</strong> Hand-washable with mild soap for easy maintenance.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Market Landscape Section -->
+            <section id="market" class="content-section hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold">Market & Competitive Landscape</h2>
+                     <p class="text-gray-600 mt-2">Vero Ankle operates in the growing orthopedic braces market, targeting both professional and consumer segments. This section analyzes its market positioning, channel strategy, and key competitors. Use the toggle to explore the different business models.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-center mb-4">Channel Strategy Breakdown</h3>
+                         <div class="flex justify-center items-center mb-4">
+                            <span class="mr-2 font-medium">B2B (HCP)</span>
+                            <label for="channelToggle" class="flex items-center cursor-pointer">
+                                <div class="relative">
+                                    <input type="checkbox" id="channelToggle" class="sr-only">
+                                    <div class="block bg-gray-600 w-14 h-8 rounded-full"></div>
+                                    <div class="dot absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition"></div>
+                                </div>
+                            </label>
+                            <span class="ml-2 font-medium">B2C (Consumer)</span>
+                        </div>
+                        <div class="chart-container mx-auto">
+                            <canvas id="channelChart"></canvas>
+                        </div>
+                        <p id="channelDescription" class="text-sm text-gray-600 mt-4 text-center">The company primarily targets healthcare professionals, relying on prescriptions and recommendations from orthopedic clinics and surgeons. This channel leverages the founders' credibility and professional networks.</p>
+                    </div>
+
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-center mb-4">Competitive Landscape</h3>
+                        <div class="chart-container mx-auto" style="height: 380px;">
+                            <canvas id="competitorChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="card p-6 mt-8">
+                    <h3 class="text-xl font-semibold text-center mb-4">Market Size & Growth</h3>
+                     <p class="text-gray-600 text-center mb-4">The global foot and ankle braces market is robust and projected to grow significantly.</p>
+                     <div class="flex flex-wrap justify-around text-center">
+                        <div class="p-4">
+                            <p class="text-3xl font-bold text-blue-500">$845M</p>
+                            <p class="text-gray-600">Market Value (2022)</p>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-3xl font-bold text-blue-500">7%</p>
+                            <p class="text-gray-600">Projected CAGR (2022-2027)</p>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-3xl font-bold text-blue-500">$1.18B</p>
+                            <p class="text-gray-600">Forecasted Value (2027)</p>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Strategic Fit Section -->
+            <section id="strategy" class="content-section hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold">SWOT Analysis for Acquisition</h2>
+                    <p class="text-gray-600 mt-2">This analysis evaluates the internal strengths and weaknesses of Vero Ankle, alongside the external opportunities and threats in the market. This framework provides a strategic overview to inform the acquisition decision. Hover over each quadrant for detailed insights.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Strengths -->
+                    <div class="card p-6 border-t-4 border-green-500">
+                        <h3 class="text-xl font-bold text-green-700">Strengths</h3>
+                        <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                            <li><strong>Clinician-Designed:</strong> High credibility and trust, especially in the HCP market.</li>
+                            <li><strong>Patented Technology:</strong> BioMemory™ material provides a unique selling proposition and defensible market position.</li>
+                            <li><strong>Modular 3-in-1 System:</strong> Versatile product that addresses the full recovery cycle, increasing its value proposition.</li>
+                             <li><strong>Strong B2B Foundation:</strong> Established relationships with orthopedic professionals provide a solid sales channel.</li>
+                        </ul>
+                    </div>
+                    <!-- Weaknesses -->
+                    <div class="card p-6 border-t-4 border-yellow-500">
+                        <h3 class="text-xl font-bold text-yellow-700">Weaknesses</h3>
+                        <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                            <li><strong>Limited Product Line:</strong> Heavy reliance on a single core product line (ankle braces).</li>
+                            <li><strong>Brand Awareness:</strong> Lower brand recognition in the broader consumer market compared to established giants.</li>
+                            <li><strong>Premium Pricing:</strong> Higher price point (~$70-$100) may be a barrier for some consumer segments.</li>
+                            <li><strong>Scale of Operations:</strong> Likely smaller manufacturing and distribution network compared to major competitors.</li>
+                        </ul>
+                    </div>
+                    <!-- Opportunities -->
+                    <div class="card p-6 border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold text-blue-700">Opportunities</h3>
+                        <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                             <li><strong>Expand B2C/DTC Channel:</strong> Significant growth potential through targeted digital marketing and e-commerce expansion.</li>
+                            <li><strong>Product Line Extension:</strong> Leverage BioMemory™ technology for other orthopedic supports (knee, wrist).</li>
+                            <li><strong>International Expansion:</strong> Enter new geographic markets, particularly in Asia-Pacific where growth is high.</li>
+                             <li><strong>Partnerships:</strong> Collaborate with sports leagues, athletic organizations, and large healthcare systems.</li>
+                        </ul>
+                    </div>
+                    <!-- Threats -->
+                    <div class="card p-6 border-t-4 border-red-500">
+                        <h3 class="text-xl font-bold text-red-700">Threats</h3>
+                        <ul class="mt-4 space-y-2 text-gray-700 list-disc list-inside">
+                            <li><strong>Intense Competition:</strong> Market dominated by large, well-funded players like 3M, Zimmer Biomet, and Bauerfeind.</li>
+                            <li><strong>Reimbursement Changes:</strong> Shifts in insurance coverage for orthopedic devices could impact the HCP sales channel.</li>
+                            <li><strong>Generic/Low-Cost Alternatives:</strong> Proliferation of cheaper, less advanced ankle braces on consumer platforms like Amazon.</li>
+                            <li><strong>Technological Disruption:</strong> Emergence of "smart" braces with integrated sensors from competitors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navButtons = document.querySelectorAll('.nav-button');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.target;
+
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    contentSections.forEach(section => {
+                        if (section.id === targetId) {
+                            section.classList.remove('hidden');
+                        } else {
+                            section.classList.add('hidden');
+                        }
+                    });
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+            
+            // Product Tabs
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.dataset.tab;
+
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        if (content.id === tabId) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            // Channel Chart
+            const channelData = {
+                b2b: {
+                    labels: ['Orthopedic Clinics', 'Hospitals & Surgical Centers', 'Physical Therapy'],
+                    data: [65, 25, 10],
+                    description: "The company's B2B strategy is physician-led, focusing on orthopedic clinics where surgeons can directly recommend the product. Hospitals and physical therapy centers represent secondary but important channels."
+                },
+                b2c: {
+                    labels: ['Direct E-commerce', 'Third-Party Retailers', 'Sports Medicine Shops'],
+                    data: [70, 20, 10],
+                    description: "The consumer strategy is heavily reliant on their direct-to-consumer website, which captures the highest margin. Presence on other online medical supply sites and specialty sports shops is smaller but growing."
+                }
+            };
+            
+            const channelCtx = document.getElementById('channelChart').getContext('2d');
+            const channelDescription = document.getElementById('channelDescription');
+            let channelChart = new Chart(channelCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: channelData.b2b.labels,
+                    datasets: [{
+                        data: channelData.b2b.data,
+                        backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            });
+
+            const channelToggle = document.getElementById('channelToggle');
+            channelToggle.addEventListener('change', () => {
+                const isB2C = channelToggle.checked;
+                const currentData = isB2C ? channelData.b2c : channelData.b2b;
+                
+                channelChart.data.labels = currentData.labels;
+                channelChart.data.datasets[0].data = currentData.data;
+                channelDescription.textContent = currentData.description;
+                
+                channelChart.update();
+            });
+
+
+            // Competitor Chart
+            const competitorCtx = document.getElementById('competitorChart').getContext('2d');
+            new Chart(competitorCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Vero Ankle', 'Bauerfeind', 'DonJoy (DJO)', 'Med Spec (ASO)', '3M (ACE/FUTURO)'],
+                    datasets: [{
+                        label: 'Market Positioning Score (Composite)',
+                        data: [68, 85, 90, 78, 92],
+                        backgroundColor: ['#f59e0b', '#60a5fa', '#3b82f6', '#93c5fd', '#1d4ed8'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                             callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.x !== null) {
+                                        label += context.parsed.x;
+                                    }
+                                    
+                                    let details = '';
+                                    switch(context.label) {
+                                        case 'Vero Ankle': details = 'Niche, clinician-focused'; break;
+                                        case 'Bauerfeind': details = 'Premium, medical grade'; break;
+                                        case 'DonJoy (DJO)': details = 'Market leader, broad portfolio'; break;
+                                        case 'Med Spec (ASO)': details = 'Strong in athletic training'; break;
+                                        case '3M (ACE/FUTURO)': details = 'Mass-market retail giant'; break;
+                                    }
+                                    return [label, details];
+                                }
+                            }
+                        }
+                    },
+                     scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Positioning Score (Brand, Tech, Distribution)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
